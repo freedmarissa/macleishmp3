@@ -6,12 +6,13 @@ output:
   html_document:
     code_folding: hide
 ---
-**make sure you `install.packages("macleish")` before running code
+**make sure you `install.packages("macleish")` and `install.packages("leaflet")` before running code
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(macleish)
+library(leaflet)
 ```
 
 
