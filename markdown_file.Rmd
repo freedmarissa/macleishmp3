@@ -7,6 +7,12 @@ output:
     code_folding: hide
 ---
 **make sure you `install.packages("macleish")` and `install.packages("leaflet")` before running code
+
+
+##Prompt: 
+MacLeish currently has two campsites - one large group site closer to the building and one remote campsite with two tent platforms about one mile from the parking area. We would like to develop one additional campsite that is approximately half a mile walk from the parking area, within 200’ of a stream or other source of water, in forest that is unlike the forest in the two other campsites, relatively flat, and at least 500’ from any research area or any element of the Challenge Course. Propose two new campsite locations for our consideration.
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -19,7 +25,11 @@ library(sf)
 
 
 ```{r}
-
+macleish_trails <- macleish_layers[["trails"]]
+macleish_streams <- macleish_layers[["streams"]]
+macleish_forests <- macleish_layers[["forests"]]
+macleish_courses <- macleish_layers[["challenge_courses"]]
+macleish_boundary <- macleish_layers[["boundary"]]
 ```
 
 
