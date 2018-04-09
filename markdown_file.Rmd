@@ -63,14 +63,15 @@ streams_buffer <- macleish_streams %>%
   st_buffer(dist = 200) %>% 
   st_transform(4326)
 
-
+buffers_inside <- streams_buffer %>%
+  st_intersection(macleish_boundary)
 
 
 leaflet() %>%
   addTiles() %>%
   addPolylines(data = macleish_streams, 
                weight = 1, color = "brown") %>%
-  addPolygons(data = streams_buffer) %>%
+  addPolygons(data = buffers_inside)
   
 ```
 
