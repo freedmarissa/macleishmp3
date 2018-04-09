@@ -33,6 +33,8 @@ macleish_streams <- macleish_layers[["streams"]]
 macleish_forests <- macleish_layers[["forests"]]
 macleish_courses <- macleish_layers[["challenge_courses"]]
 macleish_boundary <- macleish_layers[["boundary"]]
+
+
 ```
 
 ```{r}
