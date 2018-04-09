@@ -26,23 +26,25 @@ library(sf)
 
 
 ```{r}
-macleish_layers
 macleish_landmarks <- macleish_layers[["landmarks"]]
 macleish_trails <- macleish_layers[["trails"]]
 macleish_streams <- macleish_layers[["streams"]]
 macleish_forests <- macleish_layers[["forests"]]
 macleish_courses <- macleish_layers[["challenge_courses"]]
 macleish_boundary <- macleish_layers[["boundary"]]
-
-
+contours <- read_sf("contours250k/CONTOURS250K_ARC.shp")
+head(contours)
 ```
 
 ```{r}
-
+macleish_buildings <- macleish_layers[["buildings"]]
 ```
 
+```{r}
+macleish_streams
 
-
+```
+```
 
 
 
