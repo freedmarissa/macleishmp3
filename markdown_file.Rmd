@@ -65,6 +65,7 @@ weather_stat1 <- data.frame(lat = 42.449653, lon = -72.680315)
 weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
 newsite1 <- data.frame(lat = 
 42.454198, lon = -72.683603)
+
 ```
 
 ```{r, eval=FALSE}
