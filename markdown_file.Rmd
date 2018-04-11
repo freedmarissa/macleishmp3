@@ -11,7 +11,16 @@ output:
 http://download.massgis.digital.mass.gov/shapefiles/contours5k/hp337.zip
 
 ##Prompt: 
-MacLeish currently has two campsites - one large group site closer to the building and one remote campsite with two tent platforms about one mile from the parking area. We would like to develop one additional campsite that is approximately half a mile walk from the parking area, within 200’ of a stream or other source of water, in forest that is unlike the forest in the two other campsites, relatively flat, and at least 500’ from any research area or any element of the Challenge Course. Propose two new campsite locations for our consideration.
+MacLeish currently has two campsites - one large group site closer to the building and one remote campsite with two tent platforms about one mile from the parking area. We would like to develop one additional campsite that is 
+approximately 805 meters' walk from the parking area,
+
+within 61 meters of a stream or other source of water, 
+
+in forest that is unlike the forest in the two other campsites, relatively flat, and 
+
+at least 152 meters from any research area or any element of the Challenge Course. 
+
+Propose two new campsite locations for our consideration.
 
 
 ```{r setup, include=FALSE}
@@ -60,23 +69,36 @@ Data wrangling
 ```{r}
 streams_buffer <- macleish_streams %>%
   st_transform(proj4_aea) %>%
-  st_buffer(dist = 200) %>% 
+  st_buffer(dist = 61) %>% 
   st_transform(4326)
-
-buffers_inside <- streams_buffer %>%
+sbuffers_inside <- streams_buffer %>%
   st_intersection(macleish_boundary)
+
+challenge_buffer <- macleish_courses %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 152) %>% 
+  st_transform(4326)
+cbuffers_inside <- challenge_buffer %>%
+  st_intersection(macleish_boundary)
+
+cbuffers_outside 
+
+allbuffers_inside <- sbuffers_inside %>%
+  st_intersection(cbuffers_inside)
 
 
 leaflet() %>%
   addTiles() %>%
   addPolylines(data = macleish_streams, 
                weight = 1, color = "brown") %>%
-  addPolygons(data = buffers_inside)
+  addPolygons(data = allbuffers_inside)
+
   
 ```
 
 
-
+  addPolygons(data = sbuffers_inside) %>%
+  addPolygons(data = cbuffers_inside, weight = 1, color = "red")
 
 
 
