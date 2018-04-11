@@ -46,7 +46,7 @@ unzip(local_file, exdir = "contours250k")
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 macleish_landmarks <- macleish_layers[["landmarks"]]
 macleish_trails <- macleish_layers[["trails"]]
 macleish_streams <- macleish_layers[["streams"]]
@@ -73,7 +73,7 @@ leaflet() %>%
 
 Data wrangling
 
-```{r}
+```{r, warning=FALSE}
 streams_buffer <- macleish_streams %>%
   st_transform(proj4_aea) %>%
   st_buffer(dist = 61) %>% 
