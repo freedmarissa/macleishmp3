@@ -5,6 +5,7 @@ date: "3/26/2018"
 output: 
   html_document:
     code_folding: hide
+    df_print: paged
 ---
 **make sure you `install.packages("macleish")` and `install.packages("leaflet")` before running code
 
