@@ -57,6 +57,11 @@ macleish_courses <- macleish_layers[["challenge_courses"]]
 macleish_boundary <- macleish_layers[["boundary"]]
 macleish_contours <- macleish_layers[["contours_3m"]]
 macleish_research <- macleish_layers[["research"]]
+parking <- data.frame(lat = 42.448013, lon = -72.680663)
+camp1 <- data.frame(lat = 42.450976, lon = -72.678154)
+camp2 <- data.frame(lat = 42.458570, lon = -72.679581)
+weather_stat <- data.frame(lat = 42.449653, lon = -72.680315)
+weather_stat <- data.frame(Lat = 42.448470, lon = -72.680553)
 ```
 
 ```{r, eval=FALSE}
