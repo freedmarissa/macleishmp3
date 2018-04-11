@@ -61,8 +61,10 @@ macleish_buildings <- macleish_layers[["buildings"]]
 parking <- data.frame(lat = 42.448013, lon = -72.680663)
 camp1 <- data.frame(lat = 42.450976, lon = -72.678154)
 camp2 <- data.frame(lat = 42.458570, lon = -72.679581)
-weather_stat <- data.frame(lat = 42.449653, lon = -72.680315)
-weather_stat <- data.frame(Lat = 42.448470, lon = -72.680553)
+weather_stat1 <- data.frame(lat = 42.449653, lon = -72.680315)
+weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
+newsite1 <- data.frame(lat = 
+42.454198, lon = -72.683603)
 ```
 
 ```{r, eval=FALSE}
@@ -130,11 +132,10 @@ leaflet() %>%
   addPolylines(data = macleish_streams, 
                weight = 1, color = "brown") %>%
   addPolygons(data = allbuffers_inside2) %>%
-  addMarkers(data = macleish_layers[["landmarks"]], popup = "Label") %>%
-  addPolygons(data = macleish_buildings, color = "black")
-
+  addPolygons(data = macleish_buildings, color = "black") %>%
+  addMarkers(data = newsite1, popup = "Proposed Site 1")
   
-
+addMarkers(data = macleish_layers[["landmarks"]], popup = "Label") 
 ```
 
 
