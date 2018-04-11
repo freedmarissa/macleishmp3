@@ -17,7 +17,9 @@ approximately 805 meters' walk from the parking area,
 
 within 61 meters of a stream or other source of water, 
 
-in forest that is unlike the forest in the two other campsites, relatively flat, and 
+in forest that is unlike the forest in the two other campsites, 
+
+relatively flat, and 
 
 at least 152 meters from any research area or any element of the Challenge Course. 
 
@@ -54,6 +56,7 @@ macleish_forests <- macleish_layers[["forests"]]
 macleish_courses <- macleish_layers[["challenge_courses"]]
 macleish_boundary <- macleish_layers[["boundary"]]
 macleish_contours <- macleish_layers[["contours_3m"]]
+macleish_research <- macleish_layers[["research"]]
 ```
 
 ```{r, eval=FALSE}
@@ -93,17 +96,27 @@ challenge_buffer <- macleish_courses %>%
 cbuffers_inside <- challenge_buffer %>%
   st_intersection(macleish_boundary)
 
+research_buffer <- macleish_research %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 152) %>% 
+  st_transform(4326)
+rbuffers_inside <- research_buffer %>%
+  st_intersection(macleish_research)
+
 #cbuffers_outside we need to do a thing with this later but I needed to knit the doc so i added the #
 
 allbuffers_inside <- sbuffers_inside %>%
   st_intersection(cbuffers_inside)
+
+allbuffers_inside2 <- sbuffers_inside %>%
+  st_intersection(rbuffers_inside)
 
 
 leaflet() %>%
   addTiles() %>%
   addPolylines(data = macleish_streams, 
                weight = 1, color = "brown") %>%
-  addPolygons(data = allbuffers_inside)
+  addPolygons(data = allbuffers_inside2)
 
   
 ```
