@@ -42,6 +42,8 @@ local_file <- basename(url)
 download.file(url, destfile = local_file)
 
 unzip(local_file, exdir = "contours250k")
+
+contours <- st_read(".../.../contours250k/CONTOURS250K_ARC.shp")
 ```
 
 ```{r}
