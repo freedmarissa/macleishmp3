@@ -84,7 +84,7 @@ challenge_buffer <- macleish_courses %>%
 cbuffers_inside <- challenge_buffer %>%
   st_intersection(macleish_boundary)
 
-cbuffers_outside 
+#cbuffers_outside we need to do a thing with this later but I needed to knit the doc so i added the #
 
 allbuffers_inside <- sbuffers_inside %>%
   st_intersection(cbuffers_inside)
