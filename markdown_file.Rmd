@@ -57,6 +57,7 @@ macleish_courses <- macleish_layers[["challenge_courses"]]
 macleish_boundary <- macleish_layers[["boundary"]]
 macleish_contours <- macleish_layers[["contours_3m"]]
 macleish_research <- macleish_layers[["research"]]
+macleish_buildings <- macleish_layers[["buildings"]]
 parking <- data.frame(lat = 42.448013, lon = -72.680663)
 camp1 <- data.frame(lat = 42.450976, lon = -72.678154)
 camp2 <- data.frame(lat = 42.458570, lon = -72.679581)
@@ -74,7 +75,7 @@ contours_4326
 ```
 
 ```{r}
-macleish_buildings <- macleish_layers[["buildings"]]
+
 ```
 
 ```{r}
@@ -105,7 +106,13 @@ research_buffer <- macleish_research %>%
   st_transform(proj4_aea) %>%
   st_buffer(dist = 152) %>% 
   st_transform(4326)
-rbuffers_inside <- research_buffer %>%
+research_buffer2 <- macleish_research %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 500) %>%
+  st_transform(4326)
+research_buffer_final <- research_buffer2 %>%
+  st_join(research_buffer, left = FALSE)
+rbuffers_inside <- research_buffer_final %>%
   st_intersection(macleish_research)
 
 #cbuffers_outside we need to do a thing with this later but I needed to knit the doc so i added the #
@@ -119,11 +126,15 @@ allbuffers_inside2 <- sbuffers_inside %>%
 
 leaflet() %>%
   addTiles() %>%
+  addPolylines(data = macleish_contours, color = "green") %>%
   addPolylines(data = macleish_streams, 
                weight = 1, color = "brown") %>%
-  addPolygons(data = allbuffers_inside2)
+  addPolygons(data = allbuffers_inside2) %>%
+  addMarkers(data = macleish_layers[["landmarks"]], popup = "Label") %>%
+  addPolygons(data = macleish_buildings, color = "black")
 
   
+
 ```
 
 
