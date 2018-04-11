@@ -43,7 +43,6 @@ download.file(url, destfile = local_file)
 
 unzip(local_file, exdir = "contours250k")
 
-contours <- st_read(".../.../contours250k/CONTOURS250K_ARC.shp")
 ```
 
 ```{r}
@@ -56,6 +55,8 @@ macleish_boundary <- macleish_layers[["boundary"]]
 contours <- read_sf("contours250k/CONTOURS250K_ARC.shp")
 contours_4326 <- contours %>%
   st_transform(4326)
+
+contours_4326
 ```
 
 ```{r}
