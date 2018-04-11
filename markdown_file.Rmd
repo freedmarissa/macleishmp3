@@ -53,6 +53,11 @@ macleish_streams <- macleish_layers[["streams"]]
 macleish_forests <- macleish_layers[["forests"]]
 macleish_courses <- macleish_layers[["challenge_courses"]]
 macleish_boundary <- macleish_layers[["boundary"]]
+macleish_contours <- macleish_layers[["contours_3m"]]
+```
+
+```{r, eval=FALSE}
+#not sure if we need this anymore?
 contours <- read_sf("contours250k/CONTOURS250K_ARC.shp")
 contours_4326 <- contours %>%
   st_transform(4326)
