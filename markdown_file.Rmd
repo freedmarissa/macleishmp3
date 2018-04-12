@@ -11,20 +11,6 @@ output:
 
 http://download.massgis.digital.mass.gov/shapefiles/contours5k/hp337.zip
 
-##Prompt: 
-MacLeish currently has two campsites - one large group site closer to the building and one remote campsite with two tent platforms about one mile from the parking area. We would like to develop one additional campsite that is 
-approximately 805 meters' walk from the parking area,
-
-within 61 meters of a stream or other source of water, 
-
-in forest that is unlike the forest in the two other campsites, 
-
-relatively flat, and 
-
-at least 152 meters from any research area or any element of the Challenge Course. 
-
-Propose two new campsite locations for our consideration.
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -37,16 +23,17 @@ library(sf)
 proj4_aea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 ```
 
-```{r, eval = FALSE} 
-url <- "http://download.massgis.digital.mass.gov/shapefiles/state/contours250k.zip"
+##Prompt: 
+MacLeish currently has two campsites - one large group site closer to the building and one remote campsite with two tent platforms about one mile from the parking area. We would like to develop one additional campsite that is:
+1. Approximately 500 feet (805 meters) walk from the parking area
+2. Within 200 feet (61 meters) of a stream or other source of water
+3. In forest that is unlike the forest in the two other campsites 
+4. Relatively flat
+5. At least 500 feet (152 meters) from any research area or any element of the Challenge Course. 
 
-local_file <- basename(url)
+Propose two new campsite locations for our consideration.
 
-download.file(url, destfile = local_file)
-
-unzip(local_file, exdir = "contours250k")
-```
-
+### Set up code:
 ```{r, warning=FALSE}
 macleish_landmarks <- macleish_layers[["landmarks"]]
 macleish_trails <- macleish_layers[["trails"]]
@@ -64,15 +51,7 @@ weather_stat1 <- data.frame(lat = 42.449653, lon = -72.680315)
 weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
 ```
 
-```{r}
-leaflet() %>%
-  addTiles() %>%
-  addPolylines(data = macleish_streams) %>%
-  addPolygons(data = macleish_forests)
-```
-
-Data wrangling
-
+### Data wrangling to find first proposed campsite:
 ```{r, warning=FALSE}
 streams_buffer <- macleish_streams %>%
   st_transform(proj4_aea) %>% #convert to meters
@@ -115,6 +94,8 @@ leaflet() %>%
   addMarkers(data = camp2, popup = "Campsite 2")
 ```
 
+
+### Data wrangling to find second proposed campsite:
 ```{r}
 challenge_buffer <- macleish_courses %>%
   st_transform(proj4_aea) %>% #convert to meters
