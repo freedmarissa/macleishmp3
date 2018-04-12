@@ -1,6 +1,6 @@
 ---
 title: "Markdown File"
-author: "Marissa Freed, Natasha Rosenthal"
+author: "Marissa Freed, Natasha Rosenthal, Maggie Welsh"
 date: "3/26/2018"
 output: 
   html_document:
@@ -52,7 +52,7 @@ weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
 ```
 
 ### Data wrangling to find first proposed campsite:
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 streams_buffer <- macleish_streams %>%
   st_transform(proj4_aea) %>% #convert to meters
   st_buffer(dist = 61) %>% #Create buffer so we can see areas within 200 feet (61 meters) of a stream
@@ -86,7 +86,7 @@ leaflet() %>%
   addPolygons(data = macleish_forests, color = "yellow") %>%
   addPolygons(data = allbuffers_inside2) %>%
   addPolylines(data = macleish_contours, color = "green") %>%
-  addPolylines(data = macleish_streams, color = "brown") %>%
+  addPolylines(data = macleish_streams, color = "black") %>%
   addPolylines(data = macleish_trails, color = "red") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
@@ -96,7 +96,7 @@ leaflet() %>%
 
 
 ### Data wrangling to find second proposed campsite:
-```{r}
+```{r, warning=FALSE, message=FALSE}
 challenge_buffer <- macleish_courses %>%
   st_transform(proj4_aea) %>% #convert to meters
   st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a challenge course
