@@ -77,10 +77,6 @@ contours_4326
 ```
 
 ```{r}
-
-```
-
-```{r}
 leaflet() %>%
   addTiles() %>%
   addPolylines(data = macleish_streams) %>%
@@ -91,51 +87,52 @@ Data wrangling
 
 ```{r, warning=FALSE}
 streams_buffer <- macleish_streams %>%
-  st_transform(proj4_aea) %>%
-  st_buffer(dist = 61) %>% 
-  st_transform(4326)
+  st_transform(proj4_aea) %>% #convert to meters
+  st_buffer(dist = 61) %>% #Create buffer so we can see areas within 200 feet (61 meters) of a stream
+  st_transform(4326) #change back to EPSG:4326 to plot it on leaflet
+
 sbuffers_inside <- streams_buffer %>%
-  st_intersection(macleish_boundary)
+  st_intersection(macleish_boundary) #Find intersection with boundary so we are only looking at possible areas within Macleish
 
 challenge_buffer <- macleish_courses %>%
-  st_transform(proj4_aea) %>%
-  st_buffer(dist = 152) %>% 
-  st_transform(4326)
+  st_transform(proj4_aea) %>% #convert to meters
+  st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a challenge course
+  st_transform(4326) #change back to EPSG:4326 to plot it on leaflet
 cbuffers_inside <- challenge_buffer %>%
-  st_intersection(macleish_boundary)
-
-research_buffer <- macleish_research %>%
-  st_transform(proj4_aea) %>%
-  st_buffer(dist = 152) %>% 
-  st_transform(4326)
-research_buffer2 <- macleish_research %>%
-  st_transform(proj4_aea) %>%
-  st_buffer(dist = 500) %>%
-  st_transform(4326)
-research_buffer_final <- research_buffer2 %>%
-  st_join(research_buffer, left = FALSE)
-rbuffers_inside <- research_buffer_final %>%
-  st_intersection(macleish_research)
-
-#cbuffers_outside we need to do a thing with this later but I needed to knit the doc so i added the #
+  st_intersection(macleish_boundary)#Find intersection with boundary so we are only looking at possible areas within Macleish
 
 allbuffers_inside <- sbuffers_inside %>%
   st_intersection(cbuffers_inside)
+```
+
+```{r}
+research_buffer <- macleish_research %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a research area
+  st_transform(4326)
+
+research_buffer2 <- macleish_research %>%
+  st_transform(proj4_aea) %>%
+  st_buffer(dist = 200) %>% #Create buffer so we can see areas within 650 feet (200 meters) of a research area
+  st_transform(4326)
+
+research_buffer_final <- research_buffer2 %>%
+  st_join(research_buffer, join = st_intersects, left = FALSE) #join the buffers 500 and 650 feet from a research area so that we get areas at least 500 feet from a research area, and at most 650 feet from a research area.
+rbuffers_inside <- research_buffer_final %>%
+  st_intersection(macleish_boundary) #intersect joined buffers with macleish boundary so we only look at areas within Macleish.
 
 allbuffers_inside2 <- sbuffers_inside %>%
-  st_intersection(rbuffers_inside)
+  st_intersection(rbuffers_inside) #Find areas that are within 200 ft of a stream, and 500 to 650 feet from a research area
 
 
 leaflet() %>%
   addTiles() %>%
-  addPolylines(data = macleish_contours, color = "green") %>%
-  addPolylines(data = macleish_streams, 
-               weight = 1, color = "brown") %>%
-  addPolygons(data = allbuffers_inside2) %>%
+  addPolylines(data = macleish_contours, color = "green", weight = 2) %>%
+  addPolygons(data = allbuffers_inside2, weight = 1, opacity = 1) %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1")
   
-addMarkers(data = macleish_layers[["landmarks"]], popup = "Label") 
+
 ```
 
 
