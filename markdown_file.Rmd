@@ -64,15 +64,6 @@ weather_stat1 <- data.frame(lat = 42.449653, lon = -72.680315)
 weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
 ```
 
-```{r, eval=FALSE}
-#not sure if we need this anymore?
-contours <- read_sf("contours250k/CONTOURS250K_ARC.shp")
-contours_4326 <- contours %>%
-  st_transform(4326)
-
-contours_4326
-```
-
 ```{r}
 leaflet() %>%
   addTiles() %>%
@@ -130,15 +121,12 @@ challenge_buffer <- macleish_courses %>%
   st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a challenge course
   st_transform(4326) #change back to EPSG:4326 to plot it on leaflet
 cbuffers_inside <- challenge_buffer %>%
-  st_intersection(macleish_boundary)#Find intersection with boundary so we are only looking at possible areas within Macleish
+  st_intersection(macleish_boundary) #Find intersection with boundary so we are only looking at possible areas within Macleish
 
 allbuffers_inside <- sbuffers_inside %>%
   st_intersection(cbuffers_inside)
 ```
 
-
-  addPolygons(data = sbuffers_inside) %>%
-  addPolygons(data = cbuffers_inside, weight = 1, color = "red")
 
 
 
