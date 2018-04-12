@@ -9,10 +9,6 @@ output:
     fig_width: 10
     fig_length: 8
 ---
-**make sure you `install.packages("macleish")` and `install.packages("leaflet")` before running code
-
-http://download.massgis.digital.mass.gov/shapefiles/contours5k/hp337.zip
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
