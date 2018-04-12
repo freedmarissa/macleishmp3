@@ -81,7 +81,7 @@ rbuffers_inside <- research_buffer_final %>%
 allbuffers_inside <- sbuffers_inside %>%
   st_intersection(rbuffers_inside) #Find areas that are within 200 ft of a stream, and 500 to 650 feet from a research area
 
-newsite1 <- data.frame(lat = 42.454198, lon = -72.683603)
+newsite1 <- data.frame(lat = 42.454198, lon = -72.685403)
 
 leaflet() %>%
   addTiles() %>%
@@ -93,7 +93,8 @@ leaflet() %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
-  addMarkers(data = camp2, popup = "Campsite 2")
+  addMarkers(data = camp2, popup = "Campsite 2") %>%
+  addPolygons(data = macleish_research, color = "orange")
 ```
 
 
@@ -131,7 +132,10 @@ leaflet() %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
   addMarkers(data = camp2, popup = "Campsite 2") %>%
-  addMarkers(data = newsite2, popup = "Proposed Site 2")
+  addMarkers(data = newsite2, popup = "Proposed Site 2") %>%
+  addMarkers(data = weather_stat1, popup = "damn") %>%
+  addMarkers(data = weather_stat2, popup = "ugh") %>%
+  addMarkers(data = macleish_landmarks, popup = "frig")
 ```
 
 
