@@ -127,12 +127,12 @@ allbuffers_inside2 <- sbuffers_inside %>%
 
 leaflet() %>%
   addTiles() %>%
-  addPolylines(data = macleish_contours, color = "green", weight = 2) %>%
-  addPolygons(data = allbuffers_inside2, weight = 1, opacity = 1) %>%
+  addPolygons(data = allbuffers_inside2) %>%
+  addPolylines(data = macleish_contours, color = "green") %>%
+  addPolylines(data = macleish_streams, color = "brown") %>%
+  addPolylines(data = macleish_trails, color = "red") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1")
-  
-
 ```
 
 
