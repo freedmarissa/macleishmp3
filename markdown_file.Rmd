@@ -63,6 +63,7 @@ streams_buffer <- macleish_streams %>%
 sbuffers_inside <- streams_buffer %>%
   st_intersection(macleish_boundary) #Find intersection with boundary so we are only looking at possible areas within Macleish
 
+
 research_buffer <- macleish_research %>%
   st_transform(proj4_aea) %>%
   st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a research area
@@ -74,9 +75,11 @@ research_buffer2 <- macleish_research %>%
   st_transform(4326)
 
 research_buffer_final <- research_buffer2 %>%
-  st_difference(research_buffer) #join the buffers 500 and 650 feet from a research area so that we get areas at least 500 feet from a research area, and at most 650 feet from a research area.
+  st_difference(research_buffer) #find the difference of the buffers 500 and 650 feet from a research area so that we get areas at least 500 feet from a research area, and at most 650 feet from a research area.
+
 rbuffers_inside <- research_buffer_final %>%
   st_intersection(macleish_boundary) #intersect joined buffers with macleish boundary so we only look at areas within Macleish.
+
 
 challenge_buffer <- macleish_courses %>%
   st_transform(proj4_aea) %>% #convert to meters
@@ -89,69 +92,52 @@ challenge_buffer2 <- macleish_courses %>%
   st_transform(4326)
 
 challenge_buffer_final <- challenge_buffer2 %>%
-  st_difference(challenge_buffer) #join the buffers 500 and 650 feet from a challenge course so that we get areas at least 500 feet from a research area, and at most 650 feet from a research area.
+  st_difference(challenge_buffer) #find the difference of the buffers 500 and 650 feet from a challenge course so that we get areas at least 500 feet from a challenge course, and at most 650 feet from a challenge course.
 
 cbuffers_inside <- challenge_buffer_final %>%
-  st_intersection(macleish_boundary) #intersect joined buffers with macleish boundary so we only look at possible areas inside.
+  st_intersection(macleish_boundary) #intersect buffer with macleish boundary so we only look at possible areas inside.
+```
 
+### Map of the buffers for the challenge courses, research areas, and streams as well as the contour data:
+```{r}
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue") %>%
+  addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow") %>%
+  addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red") %>%
+  addPolylines(data = macleish_contours, color = "green")
+```
 
-
+### Map for the first proposed campsite
+```{r}
 newsite1 <- data.frame(lat = 42.450162, lon = -72.679100)
 
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = macleish_forests, color = "purple") %>%
-  addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue") %>%
-  addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow") %>%
-  addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red") %>%
   addPolylines(data = macleish_contours, color = "green") %>%
-  addPolylines(data = macleish_streams, color = "black") %>%
+  addPolylines(data = macleish_streams, color = "blue") %>%
   addPolylines(data = macleish_trails, color = "black") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
-  addMarkers(data = camp2, popup = "Campsite 2") %>%
-  addMarkers(data = weather_stat1, popup = "") %>%
-  addMarkers(data = weather_stat2, popup = "") %>%
-  addMarkers(data = macleish_landmarks, popup = "") %>%
-  addPolygons(data = macleish_research, color = "orange") %>%
-  addMarkers(data = macleish_courses, popup = "x")
-
+  addMarkers(data = camp2, popup = "Campsite 2")
 ```
 
-
-allbuffers_final <- bothbuffers_inside %>%
-  st_intersection(sbuffers_inside) #Find areas that are within 200 ft of a stream, and 500 to 650 feet from a research area and challenge course
-  
-allbuffers_inside2 <- sbuffers_inside %>%
-  st_intersection(cbuffers_inside) #Find areas that are within 200 ft of a stream, and 500 to 650 feet from a challenge course
-
-### Data wrangling to find second proposed campsite:
+### Map for the second proposed campsite:
 ```{r, warning=FALSE, message=FALSE}
-
-
 newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = macleish_forests, color = "purple") %>%
-  addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue") %>%
-  addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow") %>%
-  addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red") %>%
   addPolylines(data = macleish_contours, color = "green") %>%
-  addPolylines(data = macleish_streams, color = "black") %>%
+  addPolylines(data = macleish_streams, color = "blue") %>%
   addPolylines(data = macleish_trails, color = "black") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
-  addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
+  addMarkers(data = newsite2, popup = "Proposed Site 2") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
-  addMarkers(data = camp2, popup = "Campsite 2") %>%
-  addMarkers(data = weather_stat1, popup = "") %>%
-  addMarkers(data = weather_stat2, popup = "") %>%
-  addMarkers(data = macleish_landmarks, popup = "") %>%
-  addPolygons(data = macleish_research, color = "orange") %>%
-  addMarkers(data = macleish_courses, popup = "x") %>%
-  addMarkers(data = newsite2, popup = "Proposed Site 2")
-
+  addMarkers(data = camp2, popup = "Campsite 2")
 ```
 
 
