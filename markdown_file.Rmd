@@ -45,7 +45,6 @@ local_file <- basename(url)
 download.file(url, destfile = local_file)
 
 unzip(local_file, exdir = "contours250k")
-
 ```
 
 ```{r, warning=FALSE}
@@ -63,8 +62,6 @@ camp1 <- data.frame(lat = 42.450976, lon = -72.678154)
 camp2 <- data.frame(lat = 42.458570, lon = -72.679581)
 weather_stat1 <- data.frame(lat = 42.449653, lon = -72.680315)
 weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
-newsite1 <- data.frame(lat = 
-42.454198, lon = -72.683603)
 ```
 
 ```{r, eval=FALSE}
@@ -94,18 +91,6 @@ streams_buffer <- macleish_streams %>%
 sbuffers_inside <- streams_buffer %>%
   st_intersection(macleish_boundary) #Find intersection with boundary so we are only looking at possible areas within Macleish
 
-challenge_buffer <- macleish_courses %>%
-  st_transform(proj4_aea) %>% #convert to meters
-  st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a challenge course
-  st_transform(4326) #change back to EPSG:4326 to plot it on leaflet
-cbuffers_inside <- challenge_buffer %>%
-  st_intersection(macleish_boundary)#Find intersection with boundary so we are only looking at possible areas within Macleish
-
-allbuffers_inside <- sbuffers_inside %>%
-  st_intersection(cbuffers_inside)
-```
-
-```{r}
 research_buffer <- macleish_research %>%
   st_transform(proj4_aea) %>%
   st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a research area
@@ -124,15 +109,31 @@ rbuffers_inside <- research_buffer_final %>%
 allbuffers_inside2 <- sbuffers_inside %>%
   st_intersection(rbuffers_inside) #Find areas that are within 200 ft of a stream, and 500 to 650 feet from a research area
 
+newsite1 <- data.frame(lat = 42.454198, lon = -72.683603)
 
 leaflet() %>%
   addTiles() %>%
+  addPolygons(data = macleish_forests, color = "yellow") %>%
   addPolygons(data = allbuffers_inside2) %>%
   addPolylines(data = macleish_contours, color = "green") %>%
   addPolylines(data = macleish_streams, color = "brown") %>%
   addPolylines(data = macleish_trails, color = "red") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
-  addMarkers(data = newsite1, popup = "Proposed Site 1")
+  addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
+  addMarkers(data = camp1, popup = "Campsite 1") %>%
+  addMarkers(data = camp2, popup = "Campsite 2")
+```
+
+```{r}
+challenge_buffer <- macleish_courses %>%
+  st_transform(proj4_aea) %>% #convert to meters
+  st_buffer(dist = 152) %>% #Create buffer so we can see areas within 500 feet (152 meters) of a challenge course
+  st_transform(4326) #change back to EPSG:4326 to plot it on leaflet
+cbuffers_inside <- challenge_buffer %>%
+  st_intersection(macleish_boundary)#Find intersection with boundary so we are only looking at possible areas within Macleish
+
+allbuffers_inside <- sbuffers_inside %>%
+  st_intersection(cbuffers_inside)
 ```
 
 
