@@ -99,6 +99,10 @@ cbuffers_inside <- challenge_buffer_final %>%
 
 ### Map of the buffers for the challenge courses, research areas, and streams as well as the contour data:
 ```{r}
+pal <- colorFactor(
+  palette = "Set3",
+  domain = macleish_layers[["forests"]]$Sheet1__Na)
+
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue", weight = 2) %>%
@@ -130,9 +134,7 @@ leaflet() %>%
 ```{r, warning=FALSE, message=FALSE}
 newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 
-pal <- colorFactor(
-  palette = "Set3",
-  domain = macleish_layers[["forests"]]$Sheet1__Na)
+
 
 leaflet() %>%
   addTiles() %>%
