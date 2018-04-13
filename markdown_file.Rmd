@@ -20,6 +20,7 @@ library(dplyr)
 library(macleish)
 library(leaflet)
 library(sf)
+library(RColorBrewer)
 proj4_aea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 ```
 
@@ -103,7 +104,9 @@ leaflet() %>%
   addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue", weight = 2) %>%
   addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow", weight = 2) %>%
   addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red", weight = 2) %>%
-  addPolylines(data = macleish_contours, color = "green", weight = 1)
+  addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
+  addPolygons(data = macleish_forests, color = ~pal(Sheet1__Na), fillOpacity = 1) %>%
+  addLegend("bottomright", pal = pal, values = macleish_forests$Sheet1__Na)
 ```
 
 ### Map for the first proposed campsite:
@@ -112,7 +115,8 @@ newsite1 <- data.frame(lat = 42.450162, lon = -72.679100)
 
 leaflet() %>%
   addTiles() %>%
-  addPolygons(data = macleish_forests, color = "purple", weight = 2) %>%
+  addPolygons(data = macleish_forests, color = ~pal(Sheet1__Na), fillOpacity = 1) %>%
+  addLegend("bottomright", pal = pal, values = macleish_forests$Sheet1__Na) %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
   addPolylines(data = macleish_streams, color = "blue", weight = 2) %>%
   addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
@@ -126,9 +130,14 @@ leaflet() %>%
 ```{r, warning=FALSE, message=FALSE}
 newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 
+pal <- colorFactor(
+  palette = "Set3",
+  domain = macleish_layers[["forests"]]$Sheet1__Na)
+
 leaflet() %>%
   addTiles() %>%
-  addPolygons(data = macleish_forests, color = "purple", weight = 2) %>%
+  addPolygons(data = macleish_forests, color = ~pal(Sheet1__Na), fillOpacity = 1) %>%
+  addLegend("bottomright", pal = pal, values = macleish_forests$Sheet1__Na) %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
   addPolylines(data = macleish_streams, color = "blue", weight = 2) %>%
   addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
