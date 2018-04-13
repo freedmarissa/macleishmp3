@@ -134,8 +134,6 @@ leaflet() %>%
 ```{r, warning=FALSE, message=FALSE}
 newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 
-
-
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = macleish_forests, color = ~pal(Sheet1__Na), fillOpacity = 1) %>%
