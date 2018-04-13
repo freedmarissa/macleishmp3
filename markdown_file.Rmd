@@ -100,9 +100,9 @@ cbuffers_inside <- challenge_buffer_final %>%
 ```{r}
 leaflet() %>%
   addTiles() %>%
-  addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue") %>%
-  addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow") %>%
-  addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red") %>%
+  addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue", weight = 2) %>%
+  addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow", weight = 2) %>%
+  addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red", weight = 2) %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1)
 ```
 
@@ -112,10 +112,10 @@ newsite1 <- data.frame(lat = 42.450162, lon = -72.679100)
 
 leaflet() %>%
   addTiles() %>%
-  addPolygons(data = macleish_forests, color = "purple") %>%
+  addPolygons(data = macleish_forests, color = "purple", weight = 2) %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
-  addPolylines(data = macleish_streams, color = "blue") %>%
-  addPolylines(data = macleish_trails, color = "black") %>%
+  addPolylines(data = macleish_streams, color = "blue", weight = 2) %>%
+  addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
@@ -128,10 +128,10 @@ newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 
 leaflet() %>%
   addTiles() %>%
-  addPolygons(data = macleish_forests, color = "purple") %>%
+  addPolygons(data = macleish_forests, color = "purple", weight = 2) %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
-  addPolylines(data = macleish_streams, color = "blue") %>%
-  addPolylines(data = macleish_trails, color = "black") %>%
+  addPolylines(data = macleish_streams, color = "blue", weight = 2) %>%
+  addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
   addMarkers(data = newsite2, popup = "Proposed Site 2") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
