@@ -120,7 +120,7 @@ leaflet() %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
   addPolylines(data = macleish_streams, color = "blue", weight = 2) %>%
   addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
-  addPolygons(data = macleish_buildings, color = "black") %>%
+  addPolygons(data = macleish_buildings, color = "black", weight = 2) %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
   addMarkers(data = camp2, popup = "Campsite 2")
@@ -141,7 +141,7 @@ leaflet() %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
   addPolylines(data = macleish_streams, color = "blue", weight = 2) %>%
   addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
-  addPolygons(data = macleish_buildings, color = "black") %>%
+  addPolygons(data = macleish_buildings, color = "black", weight = 2) %>%
   addMarkers(data = newsite2, popup = "Proposed Site 2") %>%
   addMarkers(data = camp1, popup = "Campsite 1") %>%
   addMarkers(data = camp2, popup = "Campsite 2")
