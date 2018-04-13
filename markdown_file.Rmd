@@ -103,7 +103,7 @@ leaflet() %>%
   addPolygons(data = rbuffers_inside, fillOpacity = .1, color = "blue") %>%
   addPolygons(data = cbuffers_inside, fillOpacity = .1, color = "yellow") %>%
   addPolygons(data = sbuffers_inside, fillOpacity = .1, color = "red") %>%
-  addPolylines(data = macleish_contours, color = "green")
+  addPolylines(data = macleish_contours, color = "green", weight = 1)
 ```
 
 ### Map for the first proposed campsite:
@@ -113,7 +113,7 @@ newsite1 <- data.frame(lat = 42.450162, lon = -72.679100)
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = macleish_forests, color = "purple") %>%
-  addPolylines(data = macleish_contours, color = "green") %>%
+  addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
   addPolylines(data = macleish_streams, color = "blue") %>%
   addPolylines(data = macleish_trails, color = "black") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
@@ -129,7 +129,7 @@ newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 leaflet() %>%
   addTiles() %>%
   addPolygons(data = macleish_forests, color = "purple") %>%
-  addPolylines(data = macleish_contours, color = "green") %>%
+  addPolylines(data = macleish_contours, color = "green", weight = 1) %>%
   addPolylines(data = macleish_streams, color = "blue") %>%
   addPolylines(data = macleish_trails, color = "black") %>%
   addPolygons(data = macleish_buildings, color = "black") %>%
