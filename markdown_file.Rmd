@@ -1,6 +1,6 @@
 ---
 title: "To Birch, Or Not to Birch? Possible Campsites for the MacLeish Field Station"
-author: "Marissa Freed, Natasha Rosenthal, Maggie Welsh"
+author: "Marissa Freed, Natasha Rosenthal, Maggie Welsh" 
 date: "4/15/2018"
 output: 
   html_document:
@@ -25,7 +25,7 @@ library(RColorBrewer)
 proj4_aea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 ```
 
-  Using the macleish data package, as well as data from MassGIS, our group set out to find two prospective campsites to join the two existing sites at MacLeish Field Station. To determine the best possible sites, we considered a series of data. These included the land contours layer from MassGIS, so as not to propose a site on uneven land, the forest layer of the macleish package, to ensure our proposed sites were in different forest sections than the current two sites, and several other layers of the macleish package, including the trails, streams, buildings, research, and challenge_courses layers.
+  Using the macleish data package, as well as data from MassGIS, our group set out to find two prospective campsites to join the two existing sites at MacLeish Field Station. To determine the best possible sites, we considered a series of data. These included the land contours layer from MassGIS, so as not to propose a site on uneven land, the forest layer of the macleish package, to ensure our proposed sites were in different forest sections than the current two sites, and several other layers of the macleish package, including the trails, streams, buildings, research, and challenge_courses layers. [^1]
 
 ### Set up code:
 ```{r, warning=FALSE}
@@ -125,8 +125,8 @@ leaflet() %>%
   addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
   addPolygons(data = macleish_buildings, color = "black", weight = 2) %>%
   addMarkers(data = newsite1, popup = "Proposed Site 1") %>%
-  addMarkers(data = camp1, popup = "Campsite 1") %>%
-  addMarkers(data = camp2, popup = "Campsite 2") 
+  addMarkers(data = camp1, popup = "Existing Campsite 1") %>%
+  addMarkers(data = camp2, popup = "Existing Campsite 2") 
 ```
 
   Our third map shows the location of the two existing sites and the location of our second proposed site. This site is in White Pine Ridge Top Forest and is 560m from the parking lot. Both of our proposed sites are in different forest types both from each other and from the two established campsites.
@@ -145,15 +145,16 @@ leaflet() %>%
   addPolylines(data = macleish_trails, color = "black", weight = 2) %>%
   addPolygons(data = macleish_buildings, color = "black", weight = 2) %>%
   addMarkers(data = newsite2, popup = "Proposed Site 2") %>%
-  addMarkers(data = camp1, popup = "Campsite 1") %>%
-  addMarkers(data = camp2, popup = "Campsite 2")
+  addMarkers(data = camp1, popup = "Existing Campsite 1") %>%
+  addMarkers(data = camp2, popup = "Existing Campsite 2")
 ```
 
   The campsite could consist of a few things, including a platform, a shelter, benches, and tables. There are several options for a shelter, including the [Jamaica Cottage Shop’s Camp Alcove](https://jamaicacottageshop.com/shop/10x14-lean-to/) shelter. This cabin, currently being used at an existing MacLeish campsite, is durable and versatile. A fully assembled, 10x14 cabin with color roofing and benches costs $6,400, while a pre-cut kit of a 8x12 cabin with standard green roofing is a much more manageable $3,200. In 2017, MacLeish interns assembled this cabin model from a pre-cut kit, which took a few weeks, but was a success nonetheless. Keeping costs down would require a team of dedicated interns and a supervisor with carpenting experience. To complete the site, a picnic table, like this [Home Depot Wood Patio Picnic Table](https://www.homedepot.com/p/Outdoor-Living-Today-64-3-4-in-x-66-in-Wood-Patio-Picnic-Table-PIC65/202071807?cm_mmc=Shopping%7cTHD%7cgoogle%7c&mid=sH0LrS7zx%7cdc_mtid_890338a25189_pcrid_241224074859_pkw__pmt__product_202071807_slid_&gclid=EAIaIQobChMI0v-y2smy2gIV1FqGCh2XHwksEAYYBSABEgID5vD_BwE&dclid=CPOZ3OzJstoCFQmVyAodmmQBrg), could be added for around $450, bringing the budget total to around $3,650 before possible additional costs. This setup would be ideal for our first proposed campsite, which, being in closer proximity to MacLeish’s main buildings, would be easily accessible via car (helpful to transport the heavy parts of the cabin). For our second campsite, a better option may be to create a small tent platform because of the elevation of the spot and its distance from the parking lot.
 
 ![](https://jamaicacottageshop.com/wp-content/uploads/2014/09/10x14-Lean-to-camping-shelter-with-bench-post-beam-camp-shelter-new-hampshire.jpg?x36745){.class width=10000px}
 
-  There are a few possible complications with this project. First, assembling a team of interns could prove difficult. Also, with our second proposed campsite, elevation shifts surrounding the site could be difficult to traverse for the building team. 
+  There are a few possible complications with this project. First, assembling a team of interns could prove difficult. Also, with our second proposed campsite, elevation shifts surrounding the site could be difficult to traverse for the building team, especially considering vehicles that would need to enter and exit the site (hence both shelter and platform recommendations). 
 
   The environmental risks of this project, however, would be minimal. The most pressing concern would be campers littering or causing fires, but this could be cautioned against through adequate briefing. Additionally, creating a campsite would require clearing an area of vegetation, but the effect of this will be small.
 
+[^1]: Our GitHub [repository](https://github.com/freedmarissa/macleishmp3)
