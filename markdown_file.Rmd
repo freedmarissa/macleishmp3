@@ -1,5 +1,5 @@
 ---
-title: "Proposal for Two New Campsites at Smith College Macleish Field Station"
+title: "To Birch, Or Not to Birch? Possible Campsites for the MacLeish Field Station"
 author: "Marissa Freed, Natasha Rosenthal, Maggie Welsh"
 date: "4/15/2018"
 output: 
@@ -25,15 +25,7 @@ library(RColorBrewer)
 proj4_aea <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 ```
 
-### Prompt: 
-MacLeish currently has two campsites - one large group site closer to the building and one remote campsite with two tent platforms about one mile from the parking area. We would like to develop one additional campsite that is:
-  1. Approximately 500 feet (805 meters) walk from the parking area
-  2. Within 200 feet (61 meters) of a stream or other source of water
-  3. In forest that is unlike the forest in the two other campsites 
-  4. Relatively flat
-  5. At least 500 feet (152 meters) from any research area or any element of the Challenge Course. 
-
-Propose two new campsite locations for our consideration.
+  Using the macleish data package, as well as data from MassGIS, our group set out to find two prospective campsites to join the two existing sites at MacLeish Field Station. To determine the best possible sites, we considered a series of data. These included the land contours layer from MassGIS, so as not to propose a site on uneven land, the forest layer of the macleish package, to ensure our proposed sites were in different forest sections than the current two sites, and several other layers of the macleish package, including the trails, streams, buildings, research, and challenge_courses layers.
 
 ### Set up code:
 ```{r, warning=FALSE}
@@ -52,6 +44,7 @@ camp2 <- data.frame(lat = 42.458570, lon = -72.679581)
 weather_stat1 <- data.frame(lat = 42.449653, lon = -72.680315)
 weather_stat2 <- data.frame(Lat = 42.448470, lon = -72.680553)
 ```
+
 
 ### Data wrangling to find first proposed campsite:
 ```{r, warning=FALSE, message=FALSE}
@@ -98,8 +91,10 @@ cbuffers_inside <- challenge_buffer_final %>%
   st_intersection(macleish_boundary) #intersect buffer with macleish boundary so we only look at possible areas inside.
 ```
 
+  On our first map, we created buffers for three main criteria: appropriate distance from challenge courses, research areas, and streams. We created 3 different color buffers so that they would combine to make a separate color, indicating the areas that fit all these criteria. The yellow and blue buffers represent areas 500-650 feet away from challenge courses and research areas respectively, while the red buffer represents areas within 200 feet of a stream. Land contour lines, which we added in green, allowed us to pick prospective sites that were relatively flat, avoiding the many uneven areas characteristic to the landscape. In addition to this we looked at trails, buildings, and the existing campsites on the map in order to avoid these structures, although we do not show these all of these on the map, as it was difficult to interpret.
+
 ### Map of the buffers for the challenge courses, research areas, and streams as well as the contour data:
-```{r, warning=FALSE, message=FALSE, fig.cap="The blue areas are our buffers around research areas, the yellow areas are the buffers around challenge courses, the red areas are the buffers around streams/bodies of water, and the green lines are the elevation contours."}
+```{r, warning=FALSE, message=FALSE, fig.cap="*The blue areas are our buffers around research areas, the yellow areas are the buffers around challenge courses, the red areas are the buffers around streams/bodies of water, and the green lines are the elevation contours.*"}
 pal <- colorFactor(
   palette = "Set3",
   domain = macleish_layers[["forests"]]$Sheet1__Na)
@@ -114,8 +109,11 @@ leaflet() %>%
   addPolylines(data = macleish_contours, color = "green", weight = 1)
 ```
 
+  Our second map shows three points, two of which show the location of the existing campsites. The third shows the location of our first proposed site. This site is located in Recently Cut Birch Forest. Young saplings are characteristic of this type of forest, which could make it more difficult to clear than some other types, but ultimately it should be achievable. Though this site is just 270 meters from the parking lot, it fits all of the other criteria and is a suitable spot overall. 
+
+
 ### Map for the first proposed campsite:
-```{r, warning=FALSE, message=FALSE, fig.cap="The green lines correspond to the elevation contours, the blue lines correspond to streams, the black lines correspond to trails, the black areas are buildings, and the popups correspond to the locations of current campsites and our first proposed site."}
+```{r, warning=FALSE, message=FALSE, fig.cap="*Here, the blue lines correspond to streams, the black lines correspond to trails, the black areas are buildings, and the popups correspond to the locations of current campsites and our first proposed site.*"}
 newsite1 <- data.frame(lat = 42.450162, lon = -72.679100)
 
 leaflet() %>%
@@ -131,8 +129,10 @@ leaflet() %>%
   addMarkers(data = camp2, popup = "Campsite 2") 
 ```
 
+  Our third map shows the location of the two existing sites and the location of our second proposed site. This site is in White Pine Ridge Top Forest and is 560m from the parking lot. Both of our proposed sites are in different forest types both from each other and from the two established campsites.
+
 ### Map for the second proposed campsite:
-```{r, warning=FALSE, message=FALSE, fig.cap="The green lines correspond to the elevation contours, the blue lines correspond to streams, the black lines correspond to trails, the black areas are buildings, and the popups correspond to the locations of current campsites and our second proposed site."}
+```{r, warning=FALSE, message=FALSE, fig.cap="*The colors correspond to the same things as in the previous map, but the third popup corresponds to the location of our second proposed site.*"}
 
 newsite2 <- data.frame(lat = 42.452651, lon = -72.683470)
 
@@ -149,11 +149,11 @@ leaflet() %>%
   addMarkers(data = camp2, popup = "Campsite 2")
 ```
 
+  The campsite could consist of a few things, including a platform, a shelter, benches, and tables. There are several options for a shelter, including the [Jamaica Cottage Shop’s Camp Alcove](https://jamaicacottageshop.com/shop/10x14-lean-to/) shelter. This cabin, currently being used at an existing MacLeish campsite, is durable and versatile. A fully assembled, 10x14 cabin with color roofing and benches costs $6,400, while a pre-cut kit of a 8x12 cabin with standard green roofing is a much more manageable $3,200. In 2017, MacLeish interns assembled this cabin model from a pre-cut kit, which took a few weeks, but was a success nonetheless. Keeping costs down would require a team of dedicated interns and a supervisor with carpenting experience. To complete the site, a picnic table, like this [Home Depot Wood Patio Picnic Table](https://www.homedepot.com/p/Outdoor-Living-Today-64-3-4-in-x-66-in-Wood-Patio-Picnic-Table-PIC65/202071807?cm_mmc=Shopping%7cTHD%7cgoogle%7c&mid=sH0LrS7zx%7cdc_mtid_890338a25189_pcrid_241224074859_pkw__pmt__product_202071807_slid_&gclid=EAIaIQobChMI0v-y2smy2gIV1FqGCh2XHwksEAYYBSABEgID5vD_BwE&dclid=CPOZ3OzJstoCFQmVyAodmmQBrg), could be added for around $450, bringing the budget total to around $3,650 before possible additional costs. This setup would be ideal for our first proposed campsite, which, being in closer proximity to MacLeish’s main buildings, would be easily accessible via car (helpful to transport the heavy parts of the cabin). For our second campsite, a better option may be to create a small tent platform because of the elevation of the spot and its distance from the parking lot.
 
+![](https://jamaicacottageshop.com/wp-content/uploads/2014/09/10x14-Lean-to-camping-shelter-with-bench-post-beam-camp-shelter-new-hampshire.jpg?x36745){.class width=10000px}
 
+  There are a few possible complications with this project. First, assembling a team of interns could prove difficult. Also, with our second proposed campsite, elevation shifts surrounding the site could be difficult to traverse for the building team. 
 
-
-
-
-
+  The environmental risks of this project, however, would be minimal. The most pressing concern would be campers littering or causing fires, but this could be cautioned against through adequate briefing. Additionally, creating a campsite would require clearing an area of vegetation, but the effect of this will be small.
 
